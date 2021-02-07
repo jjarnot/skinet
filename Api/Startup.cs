@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using AutoMapper;
+using Api.Extensions;
 
 namespace Api
 {
@@ -23,13 +24,13 @@ namespace Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(MappingProfiles));            
             services.AddControllers();
-            services.AddAutoMapper(typeof(MappingProfiles));
-            services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-
+            services.AddRouting(options => options.LowercaseUrls = true);            
             services.AddDbContext<StoreContext>(x => 
                 x.UseSqlite(_configuration.GetConnectionString("DefaultConnection")));
+            services.AddApplicationServices();
+            services.AddSwaggerDocumentation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,13 +40,14 @@ namespace Api
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseStatusCodePagesWithReExecute("/errors/{0}");
             app.UseHttpsRedirection();
 
             app.UseRouting();
             app.UseStaticFiles();
 
             app.UseAuthorization();
+            app.UseSwaggerDocumention();
 
             app.UseEndpoints(endpoints =>
             {
