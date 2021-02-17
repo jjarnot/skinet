@@ -1,0 +1,16 @@
+@url = https://localhost:5001/api
+
+
+### GET products
+GET {{url}}/products?Search=purple
+
+### GET product
+@productId = 1
+GET {{url}}/products/{{productId}}
+
+### GET brands
+GET {{url}}/products/brands
+
+
+### GET types
+GET {{url}}/products/types
