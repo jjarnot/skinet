@@ -1,6 +1,10 @@
 @url = https://localhost:5001/api
 
 
+##################################################################
+### PRODUCTS
+##################################################################
+
 ### GET products
 GET {{url}}/products?Search=purple
 
@@ -14,3 +18,34 @@ GET {{url}}/products/brands
 
 ### GET types
 GET {{url}}/products/types
+
+
+##################################################################
+### BASKET
+##################################################################
+
+### get basket
+GET {{url}}/basket/?id=1
+
+### update basket
+POST {{url}}/basket
+Content-Type: application/json
+
+{
+  "id": "1",
+  "items": [
+    {
+        "id":1,
+        "productName": "Samsung Galaxy 10",
+        "price": 10,
+        "quantity": 1,
+        "brand": "Samsung",
+        "type": "smartphone"
+
+    }
+  ]
+}
+
+
+### delete basket
+DELETE {{url}}/basket/?id=1

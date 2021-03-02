@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using AutoMapper;
 using Api.Extensions;
+using StackExchange.Redis;
 
 namespace Api
 {
@@ -29,6 +30,13 @@ namespace Api
             services.AddRouting(options => options.LowercaseUrls = true);            
             services.AddDbContext<StoreContext>(x => 
                 x.UseSqlite(_configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddSingleton<IConnectionMultiplexer>(c => {
+                var configuration = ConfigurationOptions.Parse(_configuration.GetConnectionString("Redis"), true);
+                return ConnectionMultiplexer.Connect(configuration);
+            });
+
+
             services.AddApplicationServices();
             services.AddSwaggerDocumentation();
             services.AddCors(opt => {
