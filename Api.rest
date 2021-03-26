@@ -1,4 +1,4 @@
-@url = https://localhost:5001/api
+@url = http://localhost:5000/api
 @token = Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJvYkB0ZXN0LmNvbSIsImdpdmVuX25hbWUiOiJCb2IiLCJuYmYiOjE2MTU5MzI0MjEsImV4cCI6MTYxNjUzNzIyMSwiaWF0IjoxNjE1OTMyNDIxLCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo1MDAxIn0.TBg0Nx8SghJ2b4Ywi7xWR7axAawcTTD8uP5EbgazeR-nC_NhY2Y2B4IIMUPZdkTltfb-XuNdcUS4sSF2KcItwQ
 
 ##################################################################
@@ -46,9 +46,9 @@ POST {{url}}/account/register
 Content-Type: application/json
 
 {
-  "displayName": "test02",
-  "email": "test02@test.com",
-  "password": "Pa$$w0rd02"
+  "displayName": "test03",
+  "email": "test03@test.com",
+  "password": "Pa$$w0rd03"
 }
 
 ##################################################################

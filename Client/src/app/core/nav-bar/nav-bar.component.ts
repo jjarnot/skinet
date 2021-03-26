@@ -1,3 +1,5 @@
+import { AccountService } from './../../account/account.service';
+import { IUser } from './../../shared/models/user';
 import { BasketService } from './../../basket/basket.service';
 import { IBasket } from './../../shared/models/basket';
 import { Observable } from 'rxjs';
@@ -10,10 +12,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavBarComponent implements OnInit {
   basket$: Observable<IBasket>;
+  currentUser$:Observable<IUser>;
 
-  constructor(private BasketService: BasketService) { }
+  constructor(private BasketService: BasketService, private accountService:AccountService) { }
 
   ngOnInit(): void {
     this.basket$ = this.BasketService.basket$;
+    this.currentUser$ = this.accountService.currentUser$;
+  }
+
+  logout(){
+    this.accountService.logout();
   }
 }
