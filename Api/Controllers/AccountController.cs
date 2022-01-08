@@ -11,10 +11,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
-{
-    [ApiController]
-    [Route ("api/[controller]")]    
-    public class AccountController : ControllerBase
+{ 
+    public class AccountController : BaseApiController
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;

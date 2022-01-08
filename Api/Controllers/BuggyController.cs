@@ -5,10 +5,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
-{
-    [ApiController]
-    [Route("api/[controller]")]    
-    public class BuggyController : ControllerBase
+{ 
+    public class BuggyController : BaseApiController
     {
         private readonly StoreContext _context;
         public BuggyController(StoreContext context)

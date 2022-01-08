@@ -1,5 +1,5 @@
 @url = http://localhost:5000/api
-@token = Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJvYkB0ZXN0LmNvbSIsImdpdmVuX25hbWUiOiJCb2IiLCJuYmYiOjE2MTU5MzI0MjEsImV4cCI6MTYxNjUzNzIyMSwiaWF0IjoxNjE1OTMyNDIxLCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo1MDAxIn0.TBg0Nx8SghJ2b4Ywi7xWR7axAawcTTD8uP5EbgazeR-nC_NhY2Y2B4IIMUPZdkTltfb-XuNdcUS4sSF2KcItwQ
+@token = Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJvYkB0ZXN0LmNvbSIsImdpdmVuX25hbWUiOiJCb2IiLCJuYmYiOjE2NDE2NTM2MzAsImV4cCI6MTY0MjI1ODQzMCwiaWF0IjoxNjQxNjUzNjMwLCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo1MDAxIn0.nTW0MVu9W9LM-9f743jOVexE-wwv8PE9-mEMwss_urtgCHR5-yC0rf6I7YcYVbVFdfVqpZuFNhijR3RrL341AA
 
 ##################################################################
 ### ACCOUNT
@@ -85,12 +85,13 @@ Content-Type: application/json
   "id": "1",
   "items": [
     {
-        "id":1,
-        "productName": "Samsung Galaxy 10",
-        "price": 10,
-        "quantity": 1,
-        "brand": "Samsung",
-        "type": "smartphone"
+        "id":17,
+        "productName": "Angular Magic Boots",
+        "price": 1,
+        "quantity": 20,
+        "pictureUrl": "https://localhost:5001/images/products/boot-ang2.png",
+        "brand": "Angular",
+        "type": "Boots"
 
     }
   ]
@@ -99,3 +100,42 @@ Content-Type: application/json
 
 ### delete basket
 DELETE {{url}}/basket/?id=1
+
+##################################################################
+### ORDERS
+##################################################################
+### get orders
+GET {{url}}/orders
+Content-Type: application/json
+Authorization: {{token}}
+
+
+### get order
+GET {{url}}/orders/1
+Content-Type: application/json
+Authorization: {{token}}
+
+### get delivery methods
+GET {{url}}/orders/deliverymethods
+Content-Type: application/json
+Authorization: {{token}}
+
+### create order
+POST {{url}}/orders
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "basketId": "1",
+  "deliveryMethodId": 2,
+  "shipToAddress":
+  {
+    "firstName": "Bob",
+    "lastName": "Bobbity",
+    "street": "10 The Street",
+    "city": "New York",
+    "state": "NY",
+    "country": "USA",
+    "zipcode": "90250"
+  } 
+}

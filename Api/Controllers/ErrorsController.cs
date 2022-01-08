@@ -3,9 +3,9 @@ using Api.Errors;
 
 namespace Api.Controllers
 {
-    [ApiExplorerSettings(IgnoreApi = true)]
     [Route("errors/{code}")]
-    public class ErrorController : ControllerBase
+    [ApiExplorerSettings(IgnoreApi = true)]    
+    public class ErrorController : BaseApiController
     {
         public IActionResult Error(int code)
         {
