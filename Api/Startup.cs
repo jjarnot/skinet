@@ -59,6 +59,7 @@ namespace Api
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseSwaggerDocumention();            
             app.UseStatusCodePagesWithReExecute("/errors/{0}");
             app.UseHttpsRedirection();
 
@@ -67,7 +68,6 @@ namespace Api
             app.UseCors("CorsPolicy");
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseSwaggerDocumention();
 
             app.UseEndpoints(endpoints =>
             {

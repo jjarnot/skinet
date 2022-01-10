@@ -10,6 +10,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {NgxSpinnerModule} from 'ngx-spinner';
+import { JwtInerceptor } from './core/interceptors/JwtInterceptor';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {NgxSpinnerModule} from 'ngx-spinner';
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInerceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })
