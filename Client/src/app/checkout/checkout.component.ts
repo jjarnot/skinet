@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Http2ServerRequest } from 'http2';
 import { Observable } from 'rxjs';
 import { AccountService } from '../account/account.service';
 import { BasketService } from '../basket/basket.service';
@@ -19,6 +21,8 @@ export class CheckoutComponent implements OnInit {
   ngOnInit(): void {
     this.createCheckoutForm();
     this.getAddressFormValues();
+    this.getDeliveryMethodValue();
+
     this.basketTotal$ = this.basketService.basketTotal$;
   }
 
@@ -50,5 +54,14 @@ export class CheckoutComponent implements OnInit {
         }, error => {
           console.log(error);
         })
+  }
+
+  getDeliveryMethodValue()
+  {
+    const basket = this.basketService.getCurrentBasketValue();
+    if(basket.deliveryMethodId !== null)
+    {
+      this.checkoutForm.get('deliveryForm').get('deliveryMethod').patchValue(basket.deliveryMethodId.toString());
+    }
   }
 }

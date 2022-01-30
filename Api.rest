@@ -139,3 +139,13 @@ Authorization: {{token}}
     "zipcode": "90250"
   } 
 }
+
+##################################################################
+### PAYMENTS
+##################################################################
+
+### update basket
+POST {{url}}/payments/basket1
+Content-Type: application/json
+
+{}
