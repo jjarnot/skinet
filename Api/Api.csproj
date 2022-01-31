@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Content\**" CopyToOutputDirectory="PreserveNewest" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 

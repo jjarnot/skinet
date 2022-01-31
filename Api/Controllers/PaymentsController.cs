@@ -5,6 +5,7 @@ using Core.Entities;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Stripe;
 using Order = Core.Entities.OrderAggregate.Order;
@@ -19,10 +20,12 @@ namespace Api.Controllers
 
         public PaymentsController(
             IPaymentService paymentService,
-            ILogger<PaymentsController> logger)
+            ILogger<PaymentsController> logger,
+            IConfiguration configuation)
         {
             this.logger = logger;
             this.paymentService = paymentService;
+            this.whSecret = configuation.GetSection("StripeSettings:WhSecret").Value;
         }
 
         [Authorize]

@@ -11,6 +11,8 @@ using Microsoft.Extensions.Hosting;
 using AutoMapper;
 using Api.Extensions;
 using StackExchange.Redis;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace Api
 {
@@ -30,10 +32,10 @@ namespace Api
             services.AddControllers();
             services.AddRouting(options => options.LowercaseUrls = true);            
             services.AddDbContext<StoreContext>(x => 
-                x.UseSqlite(_configuration.GetConnectionString("DefaultConnection")));
+                x.UseNpgsql(_configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDbContext<AppIdentityDbContext>(x => 
-                x.UseSqlite(_configuration.GetConnectionString("IdentityConnection")));
+                x.UseNpgsql(_configuration.GetConnectionString("IdentityConnection")));
 
 
             services.AddSingleton<IConnectionMultiplexer>(c => {
@@ -65,6 +67,12 @@ namespace Api
 
             app.UseRouting();
             app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions(){
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "Content")
+                ), 
+                RequestPath = "/content"
+            });
             app.UseCors("CorsPolicy");
             app.UseAuthentication();
             app.UseAuthorization();
@@ -72,6 +80,7 @@ namespace Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapFallbackToController("Index", "Fallback");
             });
         }
     }

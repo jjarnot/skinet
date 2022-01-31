@@ -1,13 +1,38 @@
-version: '3'
 services:
+
   redis:
-    image: redis:6.2-alpine
+    image: redis:latest
+    ports:
+      - 6379:6379
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis-data:/data
+
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+      - HTTP_USER=root
+      - HTTP_PASSWORD=secret
+    ports:
+      - 8081:8081
+    depends_on:
+      - redis
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: secret
+      POSTGRES_USER: appuser
+    ports: 
+      - 5432:5432
+
+  adminer:
+    image: adminer
     restart: always
     ports:
-      - '6379:6379'
-    command: redis-server --save 20 1 --loglevel warning --requirepass h2JbsWrt6K6GNr3g
-    volumes: 
-      - redis:/data
+      - 8080:8080
+    
 volumes:
-  redis:
-    driver: local
+  redis-data:
